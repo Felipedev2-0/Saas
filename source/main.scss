@@ -1,0 +1,98 @@
+@use'config/reset';
+@use'./config/variaveis';
+@use'sass:math';
+@use 'sass:color';
+
+
+@mixin elementoForm() {
+    padding: 8px;
+    display: block;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+@function pixelParaEm($alvoEmPixel, $contextoEmPixel: 16px) {
+    @return math.div($alvoEmPixel , $contextoEmPixel)+em
+}
+
+body {
+    background-color: #eee;
+}
+
+.container {
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+header {
+    padding: 16px 0;
+    background-color: variaveis.$corPrincipal;
+    color: white;
+    text-align: center;
+}
+
+.form-container {
+    height: 100vh; // Garante que o contêiner ocupe toda a altura da tela.
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%; // Certifique-se de que o contêiner ocupe a largura completa.
+    max-width: 960px;
+    margin: 0 auto;
+
+    h2 {
+        font-size: pixelParaEm(48px);
+        text-align: center;
+    }
+
+    form {
+
+        width: 100%;
+        max-width: 480px;
+        margin-top: 40px;
+
+        label {
+            font-weight: bold;
+            cursor: pointer
+        }
+
+
+        input {
+            @include elementoForm();
+            background-color: transparent;
+            border: none;
+            border-bottom: 3px solid variaveis.$corPrincipal;
+        }
+
+        button {
+            @include elementoForm();
+            background-color: variaveis.$corSecundaria;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+
+            &:hover {
+                background-color: color.adjust(variaveis.$corSecundaria, $lightness: -15%);
+
+            }
+
+        }
+
+
+    }
+
+}
+
+
+/*ajuste/responsividade para mobile*/
+
+@media screen and (max-width: variaveis.$mobile) {
+    .container {
+        max-width: 80%;
+    }
+}
